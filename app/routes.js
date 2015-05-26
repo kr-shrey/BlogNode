@@ -100,7 +100,7 @@ module.exports = function(app, passport) {
 //post blog
 
     app.post('/blog',isLoggedIn,function(req, res){
-      var post = 'post';
+      var post = req.body.post;
       passReqToCallback : true;
       if (post.length>0) {
         var newPost = new Blog();
@@ -131,7 +131,7 @@ module.exports = function(app, passport) {
 //post comment to a blog
 
     app.post('/commment',function(req, res){
-      var comm = 'comment';
+      var comm = req.body.comment;
       var bid = req.post.ObjectId;
       var newComm = new Comment();
       newComm.content = comm;

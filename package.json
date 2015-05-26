@@ -4,7 +4,7 @@
   "description":  "Blog",
   "main": "server.js",
   "dependencies" : {
-    "express" : "~4.0.0",
+    "express.io" : "latest",
     "ejs" : "~0.8.5",
     "mongoose" : "~3.8.1",
     "passport" : "~0.1.17",
