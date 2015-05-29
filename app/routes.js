@@ -1,6 +1,6 @@
-var User = require('./app/models/user');
-var Blog = require('./app/models/post');
-var Comment = require('./app/models/comment');
+var User = require('./models/user');
+var Blog = require('./models/post');
+var Comment = require('./models/comment');
 module.exports = function(app, passport) {
 
 //home page
@@ -69,14 +69,14 @@ module.exports = function(app, passport) {
           return ids.equals(req.user.ObjectId);
         });
         if (!isInArray) {
-          User.findByIdAndUpdate(req.user.ObjectId  { $push: {"seen_posts": blog.ObjectId}},
+          User.findByIdAndUpdate(req.user.ObjectId , { $push: {"seen_posts": blog.ObjectId}},
             {  safe: true, upsert: true},
               function(err, user) {
                 if(err){
         	         throw err;
                  }
                });
-          Blog.findByIdAndUpdate(blog.ObjectId{ $push: {"seen": req.user.ObjectId}},
+          Blog.findByIdAndUpdate(blog.ObjectId, { $push: {"seen": req.user.ObjectId}},
           { safe : true , upsert : true },
             function(err,blog){
               if (err) {
@@ -114,7 +114,7 @@ module.exports = function(app, passport) {
             throw err;
           }
 
-          User.findByIdAndUpdate(req.user.ObjectId  { $push: {"seen_posts": newPost.ObjectId}},
+          User.findByIdAndUpdate(req.user.ObjectId,  { $push: {"seen_posts": newPost.ObjectId}},
             {  safe: true, upsert: true},
               function(err, model) {
                 if(err){

@@ -5,7 +5,7 @@ var userSchema = mongoose.Schema({
     name             : String,
     email            : String,
     password         : String,
-    seen_posts       : [{ type: Schema.Types.ObjectId, ref: 'Post'}]
+    seen_posts       : [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post'}]
 
 });
 userSchema.methods.generateHash = function(password) {

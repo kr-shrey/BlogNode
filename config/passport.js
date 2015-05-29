@@ -20,10 +20,11 @@ module.exports = function(passport) {
         passwordField : 'password',
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
-    function(req, email, password, done) {
-        User.findOne({ 'local.email' :  email }, function(err, user) {
-            if (err)
+    function(req, uname, email, password, done) {
+        User.findOne({ 'email' :  email }, function(err, user) {
+            if (err){
                 return done(err);
+            }
             if (user) {
                 return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
             } else {
@@ -32,8 +33,9 @@ module.exports = function(passport) {
                 newUser.email    = email;
                 newUser.password = newUser.generateHash(password);
                 newUser.save(function(err) {
-                    if (err)
+                    if (err){
                         throw err;
+                    }
                     return done(null, newUser);
                 });
             }
@@ -48,7 +50,7 @@ module.exports = function(passport) {
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
     function(req, email, password, done) { // callback with email and password from our form
-        User.findOne({ 'local.email' :  email }, function(err, user) {
+        User.findOne({ 'email' :  email }, function(err, user) {
             if (err)
                 return done(err);
             if (!user)
