@@ -15,12 +15,12 @@ module.exports = function(passport) {
 
     passport.use('local-signup', new LocalStrategy({
         // by default, local strategy uses username and password, we will override with email
-        usernameField : 'uname',
-        useremailField : 'email',
+        usernameField : 'email',
+        usernameemailField : 'uname',
         passwordField : 'password',
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
-    function(req, uname, email, password, done) {
+    function(req, email, password, done) {
         User.findOne({ 'email' :  email }, function(err, user) {
             if (err){
                 return done(err);
@@ -29,7 +29,7 @@ module.exports = function(passport) {
                 return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
             } else {
                 var newUser            = new User();
-                newUser.name     = uname;
+                newUser.name     = req.param('uname');
                 newUser.email    = email;
                 newUser.password = newUser.generateHash(password);
                 newUser.save(function(err) {
